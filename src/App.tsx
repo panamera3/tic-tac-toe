@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
 import Lottie from "lottie-react";
 import { getLottieMetadata } from "@remotion/lottie";
-import gridImage from "../src/assets/grid.json"
-import crossImage from "../src/assets/cross.json"
-import ovalImage from "../src/assets/oval.json"
+import gridImage from "../src/assets/grid.json";
+import crossImage from "../src/assets/cross.json";
+import ovalImage from "../src/assets/oval.json";
 import type { Board } from "./types/Board";
 import type { WinningLine } from "./types/WinningLine";
 import type { CellValue } from "./types/CellValue";
+import "./App.css";
 
 export default function App() {
   const emptyBoard: Board = [
@@ -266,37 +267,21 @@ export default function App() {
   }, [gameOver]);
 
   return (
-    <div style={{ width: 500, margin: "10px auto", textAlign: "center" }}>
+    <div className="app-wrapper">
       <h2>Крестики-нолики</h2>
       <div
-        style={{
-          position: "relative",
-          width: BOARD_SIZE,
-          height: BOARD_SIZE,
-          margin: "0 auto",
-        }}
+        className="board-container"
+        style={{ width: BOARD_SIZE, height: BOARD_SIZE }}
       >
         <Lottie
           animationData={gridImage}
           loop={false}
-          style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            width: BOARD_SIZE,
-            height: BOARD_SIZE,
-            zIndex: 1,
-          }}
+          className="lottie-grid"
+          style={{ width: BOARD_SIZE, height: BOARD_SIZE }}
         />
         <div
-          style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            width: BOARD_SIZE,
-            height: BOARD_SIZE,
-            zIndex: 2,
-          }}
+          className="cells-layer"
+          style={{ width: BOARD_SIZE, height: BOARD_SIZE }}
         >
           {[0, 1, 2].map((r) =>
             [0, 1, 2].map((c) => {
@@ -306,17 +291,14 @@ export default function App() {
               return (
                 <div
                   key={`${r}-${c}`}
+                  className={`cell ${
+                    cell || gameOver ? "cell-default" : "cell-pointer"
+                  }`}
                   style={{
-                    position: "absolute",
                     left,
                     top,
                     width: CELL_SIZE,
                     height: CELL_SIZE,
-                    cursor: cell || gameOver ? "default" : "pointer",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    margin: "auto",
                   }}
                   onClick={() => handleCellClick(r, c)}
                 >
@@ -324,10 +306,10 @@ export default function App() {
                     <Lottie
                       animationData={ovalImage}
                       loop={false}
+                      className="lottie-icon"
                       style={{
                         width: ICON_SIZE,
                         height: ICON_SIZE,
-                        pointerEvents: "none",
                       }}
                     />
                   )}
@@ -335,10 +317,10 @@ export default function App() {
                     <Lottie
                       animationData={crossImage}
                       loop={false}
+                      className="lottie-icon"
                       style={{
                         width: ICON_SIZE,
                         height: ICON_SIZE,
-                        pointerEvents: "none",
                       }}
                     />
                   )}
@@ -348,17 +330,7 @@ export default function App() {
           )}
         </div>
         {winningLine && (
-          <svg
-            width={BOARD_SIZE}
-            height={BOARD_SIZE}
-            style={{
-              position: "absolute",
-              top: 0,
-              left: 0,
-              zIndex: 3,
-              pointerEvents: "none",
-            }}
-          >
+          <svg width={BOARD_SIZE} height={BOARD_SIZE} className="win-line-svg">
             <line
               x1={winningLine.start.x}
               y1={winningLine.start.y}

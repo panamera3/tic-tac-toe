@@ -1,0 +1,52 @@
+.app-wrapper {
+  width: 500px;
+  margin: 10px auto;
+  text-align: center;
+}
+
+.board-container {
+  position: relative;
+  margin: 0 auto;
+}
+
+.lottie-grid {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.cells-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+}
+
+.cell {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+}
+
+.cell-pointer {
+  cursor: pointer;
+}
+
+.cell-default {
+  cursor: default;
+}
+
+.lottie-icon {
+  pointer-events: none;
+}
+
+.win-line-svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 3;
+  pointer-events: none;
+}
